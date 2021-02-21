@@ -3,7 +3,7 @@
 #include <stdlib.h>
 #include <time.h>
 
-#include <sys/resource.h>
+// #include <sys/resource.h>
 
 void get_datetime_header(time_t now, char *datetime_str) {
     // variables to store date and time components
