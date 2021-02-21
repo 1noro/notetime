@@ -3,7 +3,9 @@
 #include <stdlib.h>
 #include <time.h>
 
-char* get_datetime_header(time_t now) {
+#include <sys/resource.h>
+
+void get_datetime_header(time_t now, char *datetime_str) {
     // variables to store date and time components
     int hours, minutes, seconds, day, month, year;
 
@@ -23,10 +25,8 @@ char* get_datetime_header(time_t now) {
     // print current date
     // printf("[%02d-%02d-%d %02d:%02d:%02d]\n", day, month, year, hours, minutes, seconds);
 
-    char* out = (char*) malloc(21 * sizeof(char));
-    sprintf(out, "[%02d-%02d-%d %02d:%02d:%02d]", day, month, year, hours, minutes, seconds);
-
-    return out;
+    // char* out = (char*) malloc(21 * sizeof(char));
+    sprintf(datetime_str, "[%02d-%02d-%d %02d:%02d:%02d]", day, month, year, hours, minutes, seconds);
 }
 
 int main(int argc, char const *argv[]) {
@@ -37,7 +37,11 @@ int main(int argc, char const *argv[]) {
     // time() returns the current time of the system as a time_t value
     time(&now);
 
-    printf("%s\n", get_datetime_header(now));
+    char datetime_str[21]; // la longitud del header
+
+    get_datetime_header(now, datetime_str);
+
+    printf("%s\n", datetime_str);
 
     return 0;
 }
