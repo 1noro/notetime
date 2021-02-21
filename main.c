@@ -5,6 +5,8 @@
 
 // #include <sys/resource.h>
 
+int HEADER_LEN = 21;
+
 void get_datetime_header(time_t now, char *datetime_str) {
     // variables to store date and time components
     int hours, minutes, seconds, day, month, year;
@@ -37,10 +39,8 @@ int main(int argc, char const *argv[]) {
     // time() returns the current time of the system as a time_t value
     time(&now);
 
-    char datetime_str[21]; // la longitud del header
-
+    char datetime_str[HEADER_LEN]; // la longitud del header
     get_datetime_header(now, datetime_str);
-
     printf("%s\n", datetime_str);
 
     return 0;
