@@ -1,0 +1,15 @@
+$ ./a.out
+2020-02-21 17:15:07
+texto largo (incluso varias lineas, o no)
+[caracter de escape]
+
+ese texto se guarda en el archivo {prefijo}_2020-02-21.txt
+en el archivo queda de esta forma
+[17:15:07]
+texto largo (incluso varias lineas, o no)
+
+[17:15:07]
+texto largo (incluso varias lineas, o no)
+
+[17:15:07]
+texto largo (incluso varias lineas, o no)
