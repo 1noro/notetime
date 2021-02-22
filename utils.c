@@ -29,7 +29,10 @@ void get_datetime_header(time_t now, char* datetime_str) {
 // change \n to \0
 void n_to_0(int str_len, char* str) {
     for (int i = 0; i < str_len; i++) {
-        if (str[i] == '\n') str[i] = '\0';
+        if (str[i] == '\n') {
+            str[i] = '\0';
+            break;
+        }
     }
 }
 
