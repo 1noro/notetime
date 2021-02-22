@@ -24,7 +24,7 @@ int main(int argc, char* argv[]) {
 
     // read note
     // (esto aquí no tien sentido, porque solo se hace un vez, pero luego, cuando se lea del archivo, hacerlo así será lo mejor)
-    char* note;
+    /*char* note;
     char note_aux[NOTE_MAXLEN];
     printf("> ");
     fgets(note_aux, NOTE_MAXLEN, stdin);
@@ -40,7 +40,24 @@ int main(int argc, char* argv[]) {
 
     printf("%s\n%s\n", header, note);
 
-    free(note);
+    free(note);*/
+
+    FILE* file;
+    char note_aux[NOTE_MAXLEN];
+
+    printf("> ");
+    fgets(note_aux, NOTE_MAXLEN, stdin);
+    n_to_0(NOTE_MAXLEN, note_aux);
+
+    file = fopen("a.ignore", "a");
+    if (file == NULL) {
+        printf("Error, no se hapodido abrir el carchivo\n");
+        exit(1);
+    }
+
+    fprintf(file, "%s\n%s\n\n", header, note_aux);
+
+    fclose(file);
 
     return 0;
 }
