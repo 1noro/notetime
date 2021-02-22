@@ -5,7 +5,7 @@
 #include <string.h>
 
 const int HEADER_LEN = 21;
-const int NOTE_LEN = 280; // tweet
+const int NOTE_MAXLEN = 280; // tweet
 
 void get_datetime_header(time_t now, char *datetime_str) {
     // variables to store date and time components
@@ -31,6 +31,7 @@ void get_datetime_header(time_t now, char *datetime_str) {
     sprintf(datetime_str, "[%02d-%02d-%d %02d:%02d:%02d]", day, month, year, hours, minutes, seconds);
 }
 
+// change \n to \0
 void n_to_0(int str_len, char *str) {
     for (int i = 0; i < str_len; i++) {
         if (str[i] == '\n') str[i] = '\0';
@@ -39,6 +40,7 @@ void n_to_0(int str_len, char *str) {
 
 int main(int argc, char const *argv[]) {
     
+    // print header
     time_t now; // time_t is arithmetic time type
     time(&now); // Obtain current time: time() returns the current time of the system as a time_t value
 
@@ -46,11 +48,13 @@ int main(int argc, char const *argv[]) {
     get_datetime_header(now, header);
     printf("%s\n", header);
 
+    // read note
+    // (esto aquí no tien sentido, porque solo se hace un vez, pero luego, cuando se lea del archivo, hacerlo así será lo mejor)
     char *note;
-    char note_aux[NOTE_LEN];
+    char note_aux[NOTE_MAXLEN];
     printf("> ");
-    fgets(note_aux, NOTE_LEN, stdin);
-    n_to_0(NOTE_LEN, note_aux);
+    fgets(note_aux, NOTE_MAXLEN, stdin);
+    n_to_0(NOTE_MAXLEN, note_aux);
 
     note = (char*) malloc((strlen(note_aux) + 1) * sizeof(char)); // se suma 1 a strlen porque no cuenta el \0 (caracter nulo de fin de string)
     if (note == NULL) {
@@ -59,7 +63,7 @@ int main(int argc, char const *argv[]) {
     }
 
     strcpy(note, note_aux); // destino, orogen
-    
+
     printf("%s\n%s\n", header, note);
 
     free(note);
