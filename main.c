@@ -2,10 +2,10 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
+#include <string.h>
 
-// #include <sys/resource.h>
-
-int HEADER_LEN = 21;
+const int HEADER_LEN = 21;
+const int NOTE_LEN = 280; // tweet
 
 void get_datetime_header(time_t now, char *datetime_str) {
     // variables to store date and time components
@@ -31,17 +31,38 @@ void get_datetime_header(time_t now, char *datetime_str) {
     sprintf(datetime_str, "[%02d-%02d-%d %02d:%02d:%02d]", day, month, year, hours, minutes, seconds);
 }
 
+void n_to_0(int str_len, char *str) {
+    for (int i = 0; i < str_len; i++) {
+        if (str[i] == '\n') str[i] = '\0';
+    }
+}
+
 int main(int argc, char const *argv[]) {
-    // time_t is arithmetic time type
-    time_t now;
+    
+    time_t now; // time_t is arithmetic time type
+    time(&now); // Obtain current time: time() returns the current time of the system as a time_t value
 
-    // Obtain current time
-    // time() returns the current time of the system as a time_t value
-    time(&now);
+    char header[HEADER_LEN]; // declaramos estática la variable del header
+    get_datetime_header(now, header);
+    printf("%s\n", header);
 
-    char datetime_str[HEADER_LEN]; // la longitud del header
-    get_datetime_header(now, datetime_str);
-    printf("%s\n", datetime_str);
+    char *note;
+    char note_aux[NOTE_LEN];
+    printf("> ");
+    fgets(note_aux, NOTE_LEN, stdin);
+    n_to_0(NOTE_LEN, note_aux);
+
+    note = (char*) malloc((strlen(note_aux) + 1) * sizeof(char)); // se suma 1 a strlen porque no cuenta el \0 (caracter nulo de fin de string)
+    if (note == NULL) {
+        printf("Error al reservar memoria para 'note'\n");
+        exit(1); // se acaba el programa con un número que no es 0 (error)
+    }
+
+    strcpy(note, note_aux); // destino, orogen
+    
+    printf("%s\n%s\n", header, note);
+
+    free(note);
 
     return 0;
 }
