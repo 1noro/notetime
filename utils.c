@@ -47,3 +47,12 @@ void print_argv(int argc, char* argv[]) {
     }
     printf("]\n");
 }
+
+// imprime char a char y su valor en decimal
+void debug_str(int len, char* str) {
+    printf("###\n");
+    for (int i = 0; i < len; i++) {
+        printf("'%c' (%d) ", str[i], str[i]);
+    }
+    printf("\n###\n");
+}
